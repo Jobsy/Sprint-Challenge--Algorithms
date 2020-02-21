@@ -99,17 +99,41 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        # bubble sort for first pass
-        arr = self._list
 
-        i = 0
-        while i < len(arr)-1:
-            if arr[i + 1] < arr[i]:
-                arr[i], arr[i + 1] = arr[i + 1],  arr[i]
-                i = -1
-            i += 1
+        arr = self._list
+        # # implement bubble sort for first pass
+        # i = 0
+        # while i < len(arr)-1:
+        #     if arr[i + 1] < arr[i]:
+        #         arr[i], arr[i + 1] = arr[i + 1],  arr[i]
+        #         i = -1
+        #     i += 1
 
         # print(arr)
+
+        # # implement selection sort for second pass / stretch
+        for i in range(0, len(arr) - 1):
+            cur_index = i
+            smallest_index = cur_index
+            curr_arr = arr[smallest_index:]
+            min_val = min(curr_arr)
+            idx_min_val = curr_arr.index(min_val)
+            cur_index_val = arr[i]
+
+            if (idx_min_val):
+                # swap value in the main arr
+                arr.insert(smallest_index, min_val)
+                arr.pop(smallest_index + 1)
+
+                # swap value in the current arr
+                curr_arr.insert(idx_min_val, cur_index_val)
+                curr_arr.pop(idx_min_val + 1)
+
+                # del all values from the smallest index
+                del arr[smallest_index + 1:]
+
+                arr = arr + curr_arr[1:]  # concat new arr with current arr
+
         return arr
 
 
