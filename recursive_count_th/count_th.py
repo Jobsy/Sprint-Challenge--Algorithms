@@ -5,20 +5,40 @@ Your function must utilize recursion. It cannot contain any loops.
 '''
 
 
-def count_th(word):
+def count_th(word, counting=0):
 
     # TBC
     # first pass
     # check if the first word is t and the second is h
     # if they are, increase counter by 1
     # else iterate and continue
-    new_word = list(word)
+    # new_word = list(word)
+    # counter = 0
+    # for i in range(len(new_word) - 1):
+    #     if new_word[i] == "t" and new_word[i+1] == "h":
+    #         counter += 1
+    #     else:
+    #         next
+    # print(counter)
+    # print(new_word)
+    # return counter
+
+    # second pass
+    # convert first pass to recursive function
     counter = 0
-    for i in range(len(new_word) - 1):
-        if new_word[i] == "t" and new_word[i+1] == "h":
-            counter += 1
-        else:
-            next
-    print(counter)
-    print(new_word)
-    return counter
+    n = len(list(word))
+    if n <= 1:
+        return 0
+    else:
+        if word[-n] == "t" and word[-n+1] == "h":
+            print("yes")
+
+            def counter():
+                nonlocal counting
+                # counting = 0
+                counting += 1
+            counter()
+        count_th(word[-n+1:], counting)
+
+    print(counting)
+    return counting
