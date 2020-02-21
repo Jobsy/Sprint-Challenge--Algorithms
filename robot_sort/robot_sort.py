@@ -100,41 +100,104 @@ class SortingRobot:
         """
         # Fill this out
 
-        arr = self._list
-        # # implement bubble sort for first pass
+        # print(SortingRobot.can_move_right(self))
+        # arr = self._list
+        # # # implement bubble sort for first pass
         # i = 0
         # while i < len(arr)-1:
-        #     if arr[i + 1] < arr[i]:
+        #     if arr[i] > arr[i + 1]:
         #         arr[i], arr[i + 1] = arr[i + 1],  arr[i]
         #         i = -1
         #     i += 1
 
-        # print(arr)
+        # # print(arr)
 
-        # # implement selection sort for second pass / stretch
-        for i in range(0, len(arr) - 1):
-            cur_index = i
-            smallest_index = cur_index
-            curr_arr = arr[smallest_index:]
-            min_val = min(curr_arr)
-            idx_min_val = curr_arr.index(min_val)
-            cur_index_val = arr[i]
+        # # # implement selection sort for second pass / stretch
+        # for i in range(0, len(arr) - 1):
+        #     cur_index = i
+        #     smallest_index = cur_index
+        #     curr_arr = arr[smallest_index:]
+        #     min_val = min(curr_arr)
+        #     idx_min_val = curr_arr.index(min_val)
+        #     cur_index_val = arr[i]
 
-            if (idx_min_val):
-                # swap value in the main arr
-                arr.insert(smallest_index, min_val)
-                arr.pop(smallest_index + 1)
+        #     if (idx_min_val):
+        #         # swap value in the main arr
+        #         arr.insert(smallest_index, min_val)
+        #         arr.pop(smallest_index + 1)
 
-                # swap value in the current arr
-                curr_arr.insert(idx_min_val, cur_index_val)
-                curr_arr.pop(idx_min_val + 1)
+        #         # swap value in the current arr
+        #         curr_arr.insert(idx_min_val, cur_index_val)
+        #         curr_arr.pop(idx_min_val + 1)
 
-                # del all values from the smallest index
-                del arr[smallest_index + 1:]
+        #         # del all values from the smallest index
+        #         del arr[smallest_index + 1:]
 
-                arr = arr + curr_arr[1:]  # concat new arr with current arr
+        #         arr = arr + curr_arr[1:]  # concat new arr with current arr
 
-        return arr
+        # return arr
+
+        # first pass
+        # while not self.light_is_on():
+        #     self.set_light_on()
+        #     while self.can_move_right():
+        #         if self.compare_item() == None:
+        #             self.swap_item()
+        #         self.move_right()
+        #         if self.compare_item() == 1:
+        #             self.swap_item()
+        #             self.move_left()
+        #             self.swap_item()
+        #             self.move_right()
+        #             self.set_light_off()
+        #         if self.compare_item() == -1:
+        #             self.move_left()
+        #             self.swap_item()
+        #             self.move_right()
+        #         if self.compare_item() == 0:
+        #             self.move_left()
+        #             self.swap_item()
+        #             self.move_right()
+
+        #     while self.can_move_left() and not self.light_is_on():
+        #         self.move_left()
+
+        # Turn light on for sorting. This will be used to determine when
+        # to terminate the while loop
+        self.set_light_on()
+        # Pick up first item to start sorting
+        self.swap_item()
+
+        while self.light_is_on() is True:
+            # Check if robot can move to the right
+            while self.can_move_right() is True:
+                # Move right to compare
+                self.move_right()
+                if self.compare_item() == 1:
+                    # If compare_item is 1, then robot is holding the larger
+                    # value. Swap to hold smaller value.
+                    self.swap_item()
+            if self.compare_item() is None:
+                # If nothing to compare, robot is at the end of the list.
+                # Drop current value at the end
+                self.swap_item()
+                # Terminate the while loop
+                self.set_light_off()
+                break
+
+            else:
+                # If the robot can't move right, it must move left
+                while self.can_move_left() is True:
+                    # Move left and compare item
+                    self.move_left()
+                    if self.compare_item() is None:
+                        # If robot moves left and finds nothing, drop
+                        # current item at current location and move
+                        # right and pick up new item.
+                        self.swap_item()
+                        self.move_right()
+                        self.swap_item()
+                        break
 
 
 if __name__ == "__main__":
@@ -147,4 +210,4 @@ if __name__ == "__main__":
     robot = SortingRobot(l)
 
     robot.sort()
-    print(robot._list)
+    # print(robot._list)
