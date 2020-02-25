@@ -25,35 +25,33 @@ Your function must utilize recursion. It cannot contain any loops.
 
 #     # second pass
 #     # convert first pass to recursive function
-#     # counter = 0
-#     n = len(list(word))
-#     if n <= 1:
-#         return 0
-#     else:
-#         if word[-n] == "t" and word[-n+1] == "h":
-#             print("yes")
-
-#             def counter():
-#                 nonlocal counting
-#                 # counting = 0
-#                 counting += 1
-#             counter()
-#         count_th(word[-n+1:], counting)
-
-#     # print(counter, "counter1111")
-#     print(counting)
-#     return counting
-
-
 def count_th(word):
+    counter = 0
 
-    if len(word) < 2:
-        return 0
+    def count_th_2(word):
+        n = len(list(word))
+        if n <= 1:
+            return 0
+        else:
+            if word[-n] == "t" and word[-n+1] == "h":
+                nonlocal counter
+                counter += 1
+            count_th_2(word[-n+1:])
 
-    # if the first two letters == 'th'
-    elif word[0:2] == 'th':
-        # Recursively check the first 2 letters
-        return count_th(word[1:]) + 1
-    else:
-        # else return
-        return count_th(word[1:])
+        return counter
+
+    return count_th_2(word)
+
+# third pass
+# def count_th(word):
+
+#     if len(word) < 2:
+#         return 0
+
+#     # if the first two letters == 'th'
+#     elif word[0:2] == 'th':
+#         # Recursively check the first 2 letters
+#         return count_th(word[1:]) + 1
+#     else:
+#         # else return
+#         return count_th(word[1:])
